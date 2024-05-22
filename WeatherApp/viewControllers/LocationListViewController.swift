@@ -21,7 +21,6 @@ class LocationListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         tableView.dataSource = self
         tableView.delegate = self
     }
@@ -37,6 +36,7 @@ class LocationListViewController: UIViewController {
     }
     
     override func prepare(for segue : UIStoryboardSegue, sender : Any?){
+        super.prepare(for: segue, sender: sender)
         selectedLocationIndex = tableView.indexPathForSelectedRow!.row
         saveLocations()
     }

@@ -17,26 +17,25 @@ class LocationDetailViewController: UIViewController {
     
     var weatherDetail : WeatherDetail!
     var locationIndex = 0
-    
+    var weatherDetailService : WeatherDetailServiceDelegate = WeatherDetailService()
     
     override func viewDidLoad() {
+        print("Inside Location Detail View Contoller")
         super.viewDidLoad()
         updateUserIterface()
     }
-    
-        
     
     func updateUserIterface(){
         
         let pageViewController = UIApplication.shared.windows.first?.rootViewController as! PageViewController
         
         let weatherLocation = pageViewController.weatherLocations[locationIndex]
-        weatherDetail = WeatherDetail(name : weatherLocation.name, latitude: weatherLocation.latitude, longitude: weatherLocation.longitude)
+        weatherDetail = WeatherDetail(weatherDetailService : weatherDetailService, name : weatherLocation.name, latitude: weatherLocation.latitude, longitude: weatherLocation.longitude)
        
         
         weatherDetail.getData {
             DispatchQueue.main.async {
-                self.dateLabel.text = String(describing: self.weatherDetail.dt!)
+                self.dateLabel.text = String(describing: self.weatherDetail.dt)
                 self.placeLabel.text = self.weatherDetail.name
                 self.temperatureLabel.text =  "\(self.weatherDetail.temp)°"
                 self.summaryLabel.text = self.weatherDetail.description
